@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="fr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>FFVB-Calendar</title>
+    <script src="../scripts/form.js" type="application/javascript"></script>
+    <link rel="stylesheet" href="../styles/form.css">
+    <!-- inspired from https://codepen.io/ainalem/pen/GRqPwoz by Mikael Ainalem -->
+</head>
+<body id="body" class="preload">>
+<div class="form">
+    <div class="title">Calendrier ICS</div>
+    <div class="subtitle">Générer un calendrier au format ICS</div>
+    <form id="formICS" action="/calendar/ics" method="GET">
+        <div class="input-container ic1">
+            <input required id="saison" class="input" type="text" placeholder=" " name="saison"/>
+            <div class="cut"></div>
+            <label for="saison" class="placeholder">Saison</label>
+        </div>
+        <div class="input-container ic2">
+            <input required id="codent" class="input" type="text" placeholder=" " name="codent"/>
+            <div class="cut"></div>
+            <label for="codent" class="placeholder">Codent</label>
+        </div>
+        <div class="input-container ic2">
+            <input required id="poule" class="input" type="text" placeholder=" " name="poule"/>
+            <div class="cut"></div>
+            <label for="poule" class="placeholder">Poule</label>
+        </div>
+        <div class="input-container ic2">
+            <input required id="team" class="input" type="text" placeholder=" " name="team"/>
+            <div class="cut"></div>
+            <label for="team" class="placeholder">Equipe</label>
+        </div>
+        <button type="submit" class="submit">Génerer</button>
+        <div class="errorDiv hide">
+            <p></p>
+        </div>
+    </form>
+    <div class="help">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="darkgrey" class="bi bi-question-circle" viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+            <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>
+        </svg>
+            Les informations nessessaire peuvent être trouver dans l'url du calendrier du site ffvb officiel <br>
+            Exemple: https://www.ffvbbeach.org/ffvbapp/resu/vbspo_calendrier.php?saison=<span>20XX/20XX</span>&codent=<span>XXXX</span>&poule=<span>XXX</span>
+    </div>
+
+</div>
+</body>
+
+</html>
+
