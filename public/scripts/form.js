@@ -7,8 +7,7 @@ window.onload = () => {
 const urlCompeleted = (event) => {
     event.preventDefault()
     const paramsElement  = document.querySelectorAll(".paramPoule:nth-child(1) div:nth-child(1) .input-container .input")
-    console.log(paramsElement)
-    if(event.target.innerText){
+    if(event.target.value){
         paramsElement.forEach( (el )=>{
             el.removeAttribute("required")
         })
