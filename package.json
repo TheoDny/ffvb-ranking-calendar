@@ -5,9 +5,10 @@
   "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prebuild": "npx tsc",
+    "concat" : "./public/concatForm.sh",
+    "prebuild": "npx tsc && ./public/concatForm.sh",
     "build": "ntl build",
-    "prestart": "npx tsc",
+    "prestart": "npx tsc && ./public/concatForm.sh",
     "start": "ntl dev",
     "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js\"",
     "prepm2": "npx tsc",
