@@ -23,15 +23,32 @@ const submitFormICS = (event) => {
     try { // if error div is showing
         let errorDiv = document.querySelector("#formICS .errorDiv")
         errorDiv.classList.remove("show");
-    } catch (e) {
-    }
-    console.log(event)
-    return
-    const regex = /^https:\/\/www\.ffvbbeach\.org\/ffvbapp\/resu\/vbspo_calendrier\.php/;
-    const isMatch = regex.test("url");
+    } catch (e) {}
 
-    const formData = new FormData(event.target); // Récupère les données du formulaire
-    const urlReq = `${event.target.action}?${new URLSearchParams(formData).toString()}`; // Ajoute les paramètres GET à l'URL
+    const formData = new FormData(event.target) // Récupère les données du formulaire
+    let params =new URLSearchParams(formData)
+    let url  = params.get("url")
+    let paramString
+    if(url){
+        params.delete("url")
+        paramString = url.split("?")[1]
+        if ( !paramString.includes("saison") &&
+            !paramString.includes("poule") &&
+            !paramString.includes("codent")){
+                let errorDiv = document.querySelector("#formICS .errorDiv")
+                errorDiv.querySelector("p").innerText = "URL Invalide"
+                errorDiv.classList.add("show")
+            return
+        }
+        params.delete("url")
+        params.delete("saison")
+        params.delete("poule")
+        params.delete("codent")
+        paramString += "&"+params.toString()
+    }else{
+        paramString = params.toString()
+    }
+    const urlReq = `${event.target.action}?${paramString}` // Ajoute les paramètres GET à l'URL
     let filename = "file.ics"
 
     fetch(urlReq)
