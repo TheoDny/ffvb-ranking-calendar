@@ -12,20 +12,32 @@
     <div class="title">Calendrier ICS</div>
     <div class="subtitle">Générer un calendrier au format ICS</div>
     <form id="formICS" action="/calendar/ics" method="GET">
-        <div class="input-container ic1">
-            <input required id="saison" class="input" type="text" placeholder=" " name="saison"/>
-            <div class="cut"></div>
-            <label for="saison" class="placeholder">Saison</label>
-        </div>
-        <div class="input-container ic2">
-            <input required id="codent" class="input" type="text" placeholder=" " name="codent"/>
-            <div class="cut"></div>
-            <label for="codent" class="placeholder">Codent</label>
-        </div>
-        <div class="input-container ic2">
-            <input required id="poule" class="input" type="text" placeholder=" " name="poule"/>
-            <div class="cut"></div>
-            <label for="poule" class="placeholder">Poule</label>
+        <div class="paramPoule">
+            <div >
+                <div class="input-container ic1">
+                    <input required id="saison" class="input" type="text" placeholder=" " name="saison"/>
+                    <div class="cut"></div>
+                    <label for="saison" class="placeholder">Saison</label>
+                </div>
+                <div class="input-container ic2">
+                    <input required id="codent" class="input" type="text" placeholder=" " name="codent"/>
+                    <div class="cut"></div>
+                    <label for="codent" class="placeholder">Codent</label>
+                </div>
+                <div class="input-container ic2">
+                    <input required id="poule" class="input" type="text" placeholder=" " name="poule"/>
+                    <div class="cut"></div>
+                    <label for="poule" class="placeholder">Poule</label>
+                </div>
+            </div>
+            <h2 class="OR">OU</h2>
+            <div>
+                <div class="input-container ic2">
+                    <input required id="url" class="input" type="text" placeholder=" " name="url"/>
+                    <div class="cut url"></div>
+                    <label for="url" class="placeholder">https://www.ffvbbeach.org/...</label>
+                </div>
+            </div>
         </div>
         <div class="input-container ic2">
             <input required id="team" class="input" type="text" placeholder=" " name="team"/>

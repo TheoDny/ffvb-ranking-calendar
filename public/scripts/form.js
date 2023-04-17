@@ -1,7 +1,23 @@
 window.onload = () => {
     document.getElementById("body").removeAttribute("class")
     document.getElementById("formICS").addEventListener("submit", submitFormICS)
+    document.getElementById("url").addEventListener("change", urlCompeleted)
 };
+
+const urlCompeleted = (event) => {
+    event.preventDefault()
+    const paramsElement  = document.querySelectorAll(".paramPoule:nth-child(1) div:nth-child(1) .input-container .input")
+    console.log(paramsElement)
+    if(event.target.innerText){
+        paramsElement.forEach( (el )=>{
+            el.removeAttribute("required")
+        })
+    }else{
+        paramsElement.forEach( (el )=>{
+            el.setAttribute("required","")
+        })
+    }
+}
 
 const submitFormICS = (event) => {
     event.preventDefault()
@@ -10,6 +26,10 @@ const submitFormICS = (event) => {
         errorDiv.classList.remove("show");
     } catch (e) {
     }
+    console.log(event)
+    return
+    const regex = /^https:\/\/www\.ffvbbeach\.org\/ffvbapp\/resu\/vbspo_calendrier\.php/;
+    const isMatch = regex.test("url");
 
     const formData = new FormData(event.target); // Récupère les données du formulaire
     const urlReq = `${event.target.action}?${new URLSearchParams(formData).toString()}`; // Ajoute les paramètres GET à l'URL
