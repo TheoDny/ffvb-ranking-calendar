@@ -1,18 +1,54 @@
 window.onload = () => {
     document.getElementById("body").removeAttribute("class")
     document.getElementById("formICS").addEventListener("submit", submitFormICS)
+    document.getElementById("url").addEventListener("change", urlCompeleted)
 };
+
+const urlCompeleted = (event) => {
+    event.preventDefault()
+    const paramsElement  = document.querySelectorAll(".paramPoule:nth-child(1) div:nth-child(1) .input-container .input")
+    if(event.target.value){
+        paramsElement.forEach( (el )=>{
+            el.removeAttribute("required")
+        })
+    }else{
+        paramsElement.forEach( (el )=>{
+            el.setAttribute("required","")
+        })
+    }
+}
 
 const submitFormICS = (event) => {
     event.preventDefault()
     try { // if error div is showing
         let errorDiv = document.querySelector("#formICS .errorDiv")
         errorDiv.classList.remove("show");
-    } catch (e) {
-    }
+    } catch (e) {}
 
-    const formData = new FormData(event.target); // Récupère les données du formulaire
-    const urlReq = `${event.target.action}?${new URLSearchParams(formData).toString()}`; // Ajoute les paramètres GET à l'URL
+    const formData = new FormData(event.target) // Récupère les données du formulaire
+    let params =new URLSearchParams(formData)
+    let url  = params.get("url")
+    let paramString
+    if(url){
+        params.delete("url")
+        paramString = url.split("?")[1]
+        if ( !paramString.includes("saison") &&
+            !paramString.includes("poule") &&
+            !paramString.includes("codent")){
+                let errorDiv = document.querySelector("#formICS .errorDiv")
+                errorDiv.querySelector("p").innerText = "URL Invalide"
+                errorDiv.classList.add("show")
+            return
+        }
+        params.delete("url")
+        params.delete("saison")
+        params.delete("poule")
+        params.delete("codent")
+        paramString += "&"+params.toString()
+    }else{
+        paramString = params.toString()
+    }
+    const urlReq = `${event.target.action}?${paramString}` // Ajoute les paramètres GET à l'URL
     let filename = "file.ics"
 
     fetch(urlReq)
