@@ -31,13 +31,18 @@ const submitFormICS = (event) => {
     let paramString
     if(url){
         params.delete("url")
-        paramString = url.split("?")[1]
-        if ( !paramString.includes("saison") &&
-            !paramString.includes("poule") &&
-            !paramString.includes("codent")){
-                let errorDiv = document.querySelector("#formICS .errorDiv")
-                errorDiv.querySelector("p").innerText = "URL Invalide"
-                errorDiv.classList.add("show")
+        try{
+            paramString = url.split("?")[1]
+            if ( !paramString.includes("saison") &&
+                !paramString.includes("poule") &&
+                !paramString.includes("codent")){
+                throw new Error('Missing parameter in url');
+            }
+        }catch (e) {
+            let errorDiv = document.querySelector("#formICS .errorDiv")
+            errorDiv.querySelector("p").innerText = "URL Invalide"
+            errorDiv.classList.add("show")
+            console.error("URL Invalide")
             return
         }
         params.delete("url")
@@ -82,10 +87,9 @@ const submitFormICS = (event) => {
         }).catch(error => {
         let form = document.querySelector("#formICS")
         let errorDiv = form.querySelector(".errorDiv")
-
         errorDiv.querySelector("p").innerText = error.message
         errorDiv.classList.add("show");
-
         console.error(`${error.message}`);
+        return
     });
 };
