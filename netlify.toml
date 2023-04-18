@@ -1,5 +1,5 @@
 [build]
-command = "npx tsc"
+command = "npx tsc && .\\public\\concatForm.sh"
 functions = "dist"
 publish = "public"
 environment = { URL_FFVB = "https://www.ffvbbeach.org/ffvbapp/resu/vbspo_calendrier.php" }
