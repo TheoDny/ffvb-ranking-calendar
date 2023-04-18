@@ -33,8 +33,8 @@ const submitFormICS = (event) => {
         params.delete("url")
         try{
             paramString = url.split("?")[1]
-            if ( !paramString.includes("saison") &&
-                !paramString.includes("poule") &&
+            if ( !paramString.includes("saison") ||
+                !paramString.includes("poule") ||
                 !paramString.includes("codent")){
                 throw new Error('Missing parameter in url');
             }
