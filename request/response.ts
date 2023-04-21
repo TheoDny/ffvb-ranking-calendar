@@ -21,7 +21,11 @@ export const sendResponse = (res: Response, data: any, msg = "") => {
     });
 }
 
-export const sendFile = (res: Response, text: any, nameFile: string) => {
-    res.set({"Content-Disposition": "attachment; filename=\"" + nameFile + "\""});
+export const sendFile = (res: Response,contentType : string , text: any, nameFile: string) => {
+    res.set({"Content-Type" : contentType + "; charset=UTF-8","Content-Disposition" : "attachment; filename=\"" + nameFile + "\""});
     res.send(text);
+}
+
+export const sendFileICS = (res: Response, text: any, nameFile: string) => {
+    sendFile(res,"text/calendar",text,nameFile)
 }

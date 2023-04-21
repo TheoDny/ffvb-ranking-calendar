@@ -1,7 +1,7 @@
 import {Request, Response} from "express";
 import {extractAll} from "../services/extract";
 import {calendarArrayToICSArray, ICSArrayToICSString} from "../utils/convert";
-import {missingParam, sendError, sendFile, sendResponse} from "../../request/response";
+import {missingParam, sendError, sendFileICS, sendResponse} from "../../request/response";
 import logger from "../utils/logger";
 import {EventAttributes} from "ics"
 import {getUrl} from "../utils/utils";
@@ -52,7 +52,7 @@ const getIcs = async (req: Request, res: Response): Promise<void> => {
                 const icsText = ICSArrayToICSString(array_ics)
 
                 if (icsText) {
-                    sendFile(res, icsText, `${team}-${saison}-${poule}.ics`)
+                    sendFileICS(res, icsText, `${team}-${saison}-${poule}.ics`)
                     return
                 } else {
                     sendError(res, "Error convert build ICS")
