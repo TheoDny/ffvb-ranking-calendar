@@ -12,8 +12,16 @@ body {
     border-radius: 20px;
     box-sizing: border-box;
     padding: 20px;
-    width: 320px;
+    width: 50%;
+    max-width: 600px ;
     transition: height 400ms ease-out;
+}
+
+@media (max-width: 1000px) {
+    div.form {
+        width: 100%;
+        max-width: 100% ;
+    }
 }
 
 .title {
