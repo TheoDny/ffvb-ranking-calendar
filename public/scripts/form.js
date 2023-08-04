@@ -3,7 +3,20 @@ window.onload = () => {
     document.getElementById("formICS").addEventListener("submit", submitFormICS)
     document.getElementById("url").addEventListener("change", urlCompeleted)
     document.getElementById("searchTeams").addEventListener("click", searchTeams)
+    document.getElementById("generateTeams").addEventListener("click", submitFormICS)
 };
+
+function setLoadingState(button) {
+    button.textContent = "Chargement...";
+    button.disabled = true;
+    document.getElementsByTagName("body")[0].classList.add("loading");
+}
+
+function unsetLoadingState(button) {
+    button.textContent = button.id === "searchTeams" ? "Chercher les Équipes" : "Générer";
+    button.disabled = false;
+    document.getElementsByTagName("body")[0].classList.remove("loading");
+}
 
 const urlCompeleted = (event) => {
     event.preventDefault()
@@ -58,6 +71,7 @@ const buildParamffvb = (form) => {
 }
 const searchTeams = (event) => {
     event.preventDefault()
+    setLoadingState(event.target);
     hideError()
     const urlReq = `api/getteams?${buildParamffvb(event.target.form)}` // Ajoute les paramètres GET à l'URL
     if (!urlReq) return;
@@ -70,7 +84,9 @@ const searchTeams = (event) => {
             }
             const teamArray = (await response.json()).data
             return replaceTeamWithSelect(teamArray);
-        })
+        }).then( () => {
+            unsetLoadingState(event.target);
+    })
 }
 
 const replaceTeamWithSelect = (teamsArray) => {
@@ -99,8 +115,9 @@ const replaceTeamWithSelect = (teamsArray) => {
 
 const submitFormICS = (event) => {
     event.preventDefault()
+    setLoadingState(event.target);
     hideError()
-    const urlReq = `${event.target.action}?${buildParamffvb(event.target)}` // Ajoute les paramètres GET à l'URL
+    const urlReq = `api/calendar/ics?${buildParamffvb(event.target.form)}` // Ajoute les paramètres GET à l'URL
     let filename = "file.ics"
 
     if (!urlReq) return;
@@ -140,5 +157,7 @@ const submitFormICS = (event) => {
         errorDiv.classList.add("show");
         console.error(`${error.message}`);
         return;
+    }).then(()=> {
+        unsetLoadingState(event.target);
     });
 };

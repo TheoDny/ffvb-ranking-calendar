@@ -148,6 +148,10 @@ body {
     width: 100%;
 }
 
+.loading {
+    filter: brightness(0.6); /* Assombrir de 20% (0.8 * 100) pendant l'état de chargement */
+}
+
 #searchTeams{
     background-color: #00ddd6;
 }
