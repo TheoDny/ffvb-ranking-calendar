@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import {extractAll} from "../services/extract";
+import {extractAll,extractTeams} from "../services/extract";
 import {calendarArrayToICSArray, ICSArrayToICSString} from "../utils/convert";
 import {missingParam, sendError, sendFileICS, sendResponse} from "../../request/response";
 import logger from "../utils/logger";

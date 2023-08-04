@@ -7,6 +7,35 @@ export const crawler = new Crawler({
     jQuery: 'cheerio'
 });
 
+export function queryTableTeamsToArray(table: any): string[] | false {
+    console.info(table)
+    let arrayTable: string[] = []
+    let dayRow : number = 0
+    try {
+        const rows = table.children;
+        for (let i = 0; i < rows.length; i++) {
+            const row = rows[i];
+            const cells = row.children;
+            if (cells.length === 1){
+                dayRow +=1
+                if (dayRow === 2 ) {
+                    return arrayTable
+                }
+            }
+            try {
+                arrayTable.push(cells[3].children[0].data)
+                arrayTable.push(cells[5].children[0].data)
+            } catch (e) {
+                console.error("Error : arrayTable.push(cells[X].children[0].data)")
+            }
+        }
+        return false
+    } catch (e) {
+        logger.error(e, "Error while parsing", "queryTableTeamsToArray");
+        return false
+    }
+}
+
 export function queryTableCalendarToArray(table: any): string[][][] | false {
     let arrayTable: any[][][] = []
     let dayArray: any[][] = []

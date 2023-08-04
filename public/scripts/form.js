@@ -2,6 +2,7 @@ window.onload = () => {
     document.getElementById("body").removeAttribute("class")
     document.getElementById("formICS").addEventListener("submit", submitFormICS)
     document.getElementById("url").addEventListener("change", urlCompeleted)
+    document.getElementById("searchTeams").addEventListener("click", searchTeams)
 };
 
 const urlCompeleted = (event) => {
@@ -18,14 +19,14 @@ const urlCompeleted = (event) => {
     }
 }
 
-const submitFormICS = (event) => {
-    event.preventDefault()
+const hideError = () => {
     try { // if error div is showing
         let errorDiv = document.querySelector("#formICS .errorDiv")
         errorDiv.classList.remove("show");
     } catch (e) {}
-
-    const formData = new FormData(event.target) // Récupère les données du formulaire
+}
+const buildParamffvb = (form) => {
+    const formData = new FormData(form)
     let params =new URLSearchParams(formData)
     let url  = params.get("url")
     let paramString
@@ -43,7 +44,7 @@ const submitFormICS = (event) => {
             errorDiv.querySelector("p").innerText = "URL Invalide"
             errorDiv.classList.add("show")
             console.error("URL Invalide")
-            return
+            return false
         }
         params.delete("url")
         params.delete("saison")
@@ -53,10 +54,58 @@ const submitFormICS = (event) => {
     }else{
         paramString = params.toString()
     }
-    const urlReq = `${event.target.action}?${paramString}` // Ajoute les paramètres GET à l'URL
+    return paramString
+}
+const searchTeams = (event) => {
+    event.preventDefault()
+    hideError()
+    const urlReq = `api/getteams?${buildParamffvb(event.target.form)}` // Ajoute les paramètres GET à l'URL
+    if (!urlReq) return;
+
+    fetch(urlReq.toString())
+        .then(async response => {
+            if (!response.ok) {
+                let resJson = await response.json()
+                throw new Error(resJson.message);
+            }
+            const teamArray = (await response.json()).data
+            return replaceTeamWithSelect(teamArray);
+        })
+}
+
+const replaceTeamWithSelect = (teamsArray) => {
+    const teamDiv = document.getElementById("team-div");
+
+// Étape 3 : Créer un nouvel élément <select>
+    const selectTeam = document.createElement("select");
+    selectTeam.setAttribute("id", "team");
+    selectTeam.setAttribute("type", "text");
+    selectTeam.setAttribute("name", "team");
+
+// Étape 4 : Parcourir la liste de chaînes et créer les options
+    teamsArray.forEach((chaine) => {
+        const option = document.createElement("option");
+        option.textContent = chaine;
+        selectTeam.appendChild(option);
+    });
+
+// Étape 5 : Remplacer l'élément <input> par l'élément <select> dans le DOM
+    teamDiv.innerHTML = selectTeam.outerHTML
+   // inputTeam.replaceWith(selectTeam);
+    return true
+}
+
+
+
+const submitFormICS = (event) => {
+    event.preventDefault()
+    hideError()
+    const urlReq = `${event.target.action}?${buildParamffvb(event.target)}` // Ajoute les paramètres GET à l'URL
     let filename = "file.ics"
 
-    fetch(urlReq)
+    if (!urlReq) return;
+
+    fetch(urlReq.toString())
         .then(async response => {
             if (!response.ok) {
                 let resJson = await response.json()
@@ -90,6 +139,6 @@ const submitFormICS = (event) => {
         errorDiv.querySelector("p").innerText = error.message
         errorDiv.classList.add("show");
         console.error(`${error.message}`);
-        return
+        return;
     });
 };
