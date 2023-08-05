@@ -8,7 +8,6 @@ export const crawler = new Crawler({
 });
 
 export function queryTableTeamsToArray(table: any): string[] | false {
-    console.info(table)
     let arrayTable: string[] = []
     let dayRow : number = 0
     try {
@@ -21,6 +20,7 @@ export function queryTableTeamsToArray(table: any): string[] | false {
                 if (dayRow === 2 ) {
                     return arrayTable
                 }
+                continue
             }
             try {
                 arrayTable.push(cells[3].children[0].data)

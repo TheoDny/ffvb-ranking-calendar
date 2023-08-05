@@ -7,7 +7,7 @@ export const calendarArrayToICSArray = (cal: string[][][], team: string, url: st
 
     cal.forEach((day, index) => {
         day.forEach((match) => {
-            if ((match["3"] === team || match["5"] === team) && match["2"] !== "00:01") {
+            if ((match["3"] === team || match["5"] === team) && match["2"] !== "00:01" && match["2"] !=="") {
                 const title = `J${index + 1} - ${match["3"]} / ${match["5"]} `
                 const date = match["1"].split("/")
                 const hour = match["2"].split(":")
