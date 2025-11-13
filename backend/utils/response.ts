@@ -29,3 +29,4 @@ export const sendFile = (res: Response,contentType : string , text: any, nameFil
 export const sendFileICS = (res: Response, text: any, nameFile: string) => {
     sendFile(res,"text/calendar",text,nameFile)
 }
+

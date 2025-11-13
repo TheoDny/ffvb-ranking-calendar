@@ -1,7 +1,7 @@
 import {Request, Response} from "express";
-import {extractAll,extractTeams} from "../services/extract";
+import {extractAll} from "../services/extract";
 import {calendarArrayToICSArray, ICSArrayToICSString} from "../utils/convert";
-import {missingParam, sendError, sendFileICS, sendResponse} from "../../request/response";
+import {missingParam, sendError, sendFileICS, sendResponse} from "../utils/response";
 import logger from "../utils/logger";
 import {EventAttributes} from "ics"
 import {getUrl} from "../utils/utils";
@@ -15,7 +15,7 @@ const getRaw = async (req: Request, res: Response): Promise<void> => {
         if (data) {
             sendResponse(res, data, `GET - ${saison} ${codent} ${poule}`)
         } else {
-            sendError(res, "server FFVB timed out or internal server error (scheck your parameters)")
+            sendError(res, "server FFVB timed out or internal server error (check your parameters)")
         }
 
     } else {
@@ -80,3 +80,4 @@ export default {
     getIcs,
     getRaw
 }
+

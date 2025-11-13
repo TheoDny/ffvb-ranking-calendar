@@ -6,3 +6,4 @@ export const calendarRoute = express.Router();
 calendarRoute.get('/calendar/raw', calendarController.getRaw);
 
 calendarRoute.get('/calendar/ics', calendarController.getIcs);
+

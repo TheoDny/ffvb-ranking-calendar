@@ -53,7 +53,7 @@ export function queryTableCalendarToArray(table: any): string[][][] | false {
 
                 try {
                     let data: string
-                    if (cell.name === "form") {
+                    if (cell && cell.name === "form") {
                         // peculiar thing the table seen by the user is not the same
                         // as the one sent by the request (on the ffvb website)
                         data = cell.children[1].children[0].data
@@ -83,3 +83,4 @@ export function queryTableCalendarToArray(table: any): string[][][] | false {
     }
 
 }
+

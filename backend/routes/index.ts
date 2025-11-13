@@ -7,3 +7,4 @@ export const routes = express.Router();
 routes.use(calendarRoute);
 
 routes.use(infoRoute);
+

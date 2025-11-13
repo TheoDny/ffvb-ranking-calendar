@@ -1,5 +1,4 @@
-//import {EventAttributes,createEvents} from 'ics'
-import {createEvents, EventAttributes} from 'ics'
+import { createEvents, EventAttributes } from 'ics';
 import logger from "./logger";
 
 export const calendarArrayToICSArray = (cal: string[][][], team: string, url: string = "") => {
@@ -42,3 +41,4 @@ export const ICSArrayToICSString = (ics_array: EventAttributes[]) => {
     }
     return value
 }
+

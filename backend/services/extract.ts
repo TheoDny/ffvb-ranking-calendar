@@ -2,14 +2,6 @@ import {sleep} from "../utils/utils";
 import {crawler, queryTableCalendarToArray, queryTableTeamsToArray} from "../utils/crawler";
 import logger from "../utils/logger";
 
-export const extractRanking = () => {
-
-}
-
-export const extractCalendar = () => {
-
-}
-
 export const extractTeams = async(url: string) => {
     let arrayTeams: string[] | false | null = null
     crawler.queue([{
@@ -56,6 +48,4 @@ export const extractAll = async (url: string) => {
     }
     return arrayCalendar
 }
-
-
 

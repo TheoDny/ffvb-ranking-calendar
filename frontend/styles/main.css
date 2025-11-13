@@ -51,9 +51,7 @@ body {
 .paramPoule{
     border: solid 1px grey;
     border-radius: 20px ;
-    margin: 10px -10px;
     padding: 10px;
-
 }
 
 #formICS{
@@ -64,10 +62,8 @@ body {
     height: 50px;
     position: relative;
     width: 100%;
-}
-
-.ic1 {
     margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .ic2 {
@@ -149,7 +145,7 @@ body {
 }
 
 .loading {
-    filter: brightness(0.6); /* Assombrir de 20% (0.8 * 100) pendant l'état de chargement */
+    filter: brightness(0.6);
 }
 
 #searchTeams{
@@ -224,6 +220,8 @@ div.show.errorDiv {
 /* Select style */
 body {
     background: linear-gradient(35deg, red, purple);
+    margin: 0;
+    height: 100dvh;
 }
 
 /* <select> styles */
@@ -260,3 +258,4 @@ select:focus {
 select::-ms-expand {
     display: none;
 }
+
