@@ -14,7 +14,7 @@ export const calendarArrayToICSArray = (cal: string[][][], team: string, url: st
                 let event_ics: EventAttributes = {
                     title: title,
                     startInputType: "utc",
-                    start: [2000 + parseInt(date[2]),
+                    start: [parseInt(date[2]),
                         parseInt(date[1]),
                         parseInt(date[0]),
                         parseInt(hour[0]),
