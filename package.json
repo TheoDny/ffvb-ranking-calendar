@@ -12,11 +12,16 @@
     "start:netlify": "netlify dev",
     "deploy": "pnpm run build && netlify deploy --prod"
   },
-  "keywords": ["ffvb", "volleyball", "calendar", "ics"],
+  "keywords": [
+    "ffvb",
+    "volleyball",
+    "calendar",
+    "ics"
+  ],
   "author": "Theo Denoyelle",
   "license": "ISC",
   "engines": {
-    "node": ">=18.0.0",
+    "node": ">=18.12.0",
     "pnpm": ">=8.0.0"
   },
   "devDependencies": {
@@ -29,6 +34,7 @@
     "typescript": "^5.4.5"
   },
   "dependencies": {
+    "accepts": "^1.3.8",
     "cheerio": "^1.0.0-rc.12",
     "crawler": "^1.5.0",
     "dotenv": "^16.4.5",
@@ -37,4 +43,3 @@
     "serverless-http": "^3.2.0"
   }
 }
-
