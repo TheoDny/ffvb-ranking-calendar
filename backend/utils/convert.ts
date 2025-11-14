@@ -1,31 +1,63 @@
-import { createEvents, EventAttributes } from 'ics';
-import logger from "./logger";
+import { createEvents, EventAttributes } from "ics"
+import {
+    DEFAULT_MATCH_DURATION_HOURS,
+    DEFAULT_TIMEZONE,
+    EMPTY_TIME,
+    INVALID_TIME_MARKER,
+    MATCH_AWAY_TEAM_INDEX,
+    MATCH_DATE_INDEX,
+    MATCH_HOME_TEAM_INDEX,
+    MATCH_LOCATION_INDEX,
+    MATCH_TIME_INDEX,
+} from "../constants"
+import { RawCalendarArray } from "../types"
+import logger from "./logger"
 
-export const calendarArrayToICSArray = (cal: string[][][], team: string, url: string = "") => {
-    let ics_array: EventAttributes[] = []
+export const calendarArrayToICSArray = (
+    cal: RawCalendarArray,
+    team: string,
+    url: string = "",
+): EventAttributes[] => {
+    const ics_array: EventAttributes[] = []
 
     cal.forEach((day, index) => {
         day.forEach((match) => {
-            if ((match["3"] === team || match["5"] === team) && match["2"] !== "00:01" && match["2"] !=="") {
-                const title = `J${index + 1} - ${match["3"]} / ${match["5"]} `
-                const date = match["1"].split("/") // [DD,MM,YY]
-                const hour = match["2"].split(":") // [HH,MM]
-                const dateArray : [number, number, number, number, number] = [2000 + parseInt(date[2]),
+            const homeTeam = match[MATCH_HOME_TEAM_INDEX]
+            const awayTeam = match[MATCH_AWAY_TEAM_INDEX]
+            const matchTime = match[MATCH_TIME_INDEX]
+            const matchDate = match[MATCH_DATE_INDEX]
+
+            // Check if this match involves the team and has valid time
+            if (
+                (homeTeam === team || awayTeam === team) &&
+                matchTime !== INVALID_TIME_MARKER &&
+                matchTime !== EMPTY_TIME
+            ) {
+                const title = `J${index + 1} - ${homeTeam} / ${awayTeam} `
+                const date = matchDate.split("/") // [DD,MM,YY]
+                const hour = matchTime.split(":") // [HH,MM]
+                const dateArray: [number, number, number, number, number] = [
+                    2000 + parseInt(date[2]),
                     parseInt(date[1]),
                     parseInt(date[0]),
                     parseInt(hour[0]),
-                    parseInt(hour[1])]
-                let event_ics: EventAttributes = {
+                    parseInt(hour[1]),
+                ]
+                const event_ics: EventAttributes = {
                     title: title,
                     startInputType: "local",
                     startOutputType: "local",
                     start: dateArray,
-                    duration: {hours: 2},
+                    duration: { hours: DEFAULT_MATCH_DURATION_HOURS },
                     url: url,
-                    calName: "Europe/Paris"
+                    calName: DEFAULT_TIMEZONE,
                 }
-                if (match["6"] && match["6"].length !== 1) {
-                    event_ics.location = match["3"].split(" ")[0] + ", " + match["6"]
+
+                const location = match[MATCH_LOCATION_INDEX]
+                if (location && location.length !== 1) {
+                    const homeTeamParts = homeTeam.split(" ")
+                    const homeTeamWithoutNumber = homeTeamParts.slice(0, -1).join(" ")
+                    event_ics.location = homeTeamWithoutNumber + ", " + location
                 }
 
                 ics_array.push(event_ics)
@@ -35,8 +67,8 @@ export const calendarArrayToICSArray = (cal: string[][][], team: string, url: st
     return ics_array
 }
 
-export const ICSArrayToICSString = (ics_array: EventAttributes[]) => {
-    const {error, value} = createEvents(ics_array)
+export const ICSArrayToICSString = (ics_array: EventAttributes[]): string | undefined => {
+    const { error, value } = createEvents(ics_array)
 
     if (error) {
         logger.error(error, "Error while creating the events", "ICSArrayToICSString")
@@ -44,4 +76,3 @@ export const ICSArrayToICSString = (ics_array: EventAttributes[]) => {
     }
     return value
 }
-

@@ -13,14 +13,14 @@ body {
     box-sizing: border-box;
     padding: 20px;
     width: 50%;
-    max-width: 600px ;
+    max-width: 600px;
     transition: height 400ms ease-out;
 }
 
 @media (max-width: 1000px) {
     div.form {
         width: 100%;
-        max-width: 100% ;
+        max-width: 100%;
     }
 }
 
@@ -37,24 +37,24 @@ body {
     margin-top: 10px;
 }
 
-.OR{
+.OR {
     width: 100%;
     color: grey;
     font-weight: 600;
     text-align: center;
     padding-top: 10px;
-    margin:0;
+    margin: 0;
     position: relative;
     top: 12px;
 }
 
-.paramPoule{
+.paramPoule {
     border: solid 1px grey;
-    border-radius: 20px ;
+    border-radius: 20px;
     padding: 10px;
 }
 
-#formICS{
+#formICS {
     display: grid;
 }
 
@@ -95,12 +95,12 @@ body {
     width: 76px;
 }
 
-.cut.url{
-    width:170px
+.cut.url {
+    width: 170px;
 }
 
-
-.input:focus ~ .cut, .input:hover ~ .cut,
+.input:focus ~ .cut,
+.input:hover ~ .cut,
 .input:not(:placeholder-shown) ~ .cut {
     transform: translateY(8px);
 }
@@ -112,11 +112,14 @@ body {
     pointer-events: none;
     position: absolute;
     transform-origin: 0 50%;
-    transition: transform 200ms, color 200ms;
+    transition:
+        transform 200ms,
+        color 200ms;
     top: 20px;
 }
 
-.input:focus ~ .placeholder, .input:hover ~ .placeholder,
+.input:focus ~ .placeholder,
+.input:hover ~ .placeholder,
 .input:not(:placeholder-shown) ~ .placeholder {
     transform: translateY(-30px) translateX(10px) scale(0.75);
 }
@@ -125,11 +128,12 @@ body {
     color: #808097;
 }
 
-.input:focus ~ .placeholder, .input:hover ~ .placeholder {
+.input:focus ~ .placeholder,
+.input:hover ~ .placeholder {
     color: #dc2f55;
 }
 
-.submit {
+.button {
     background-color: #08d;
     transition: background-color 200ms ease-out;
     border-radius: 12px;
@@ -148,16 +152,15 @@ body {
     filter: brightness(0.6);
 }
 
-#searchTeams{
+#searchTeams {
     background-color: #00ddd6;
 }
 
-
-.submit:hover {
+.button:hover {
     background-color: #06b;
 }
 
-.submit:active {
+.button:active {
     top: 1px;
 }
 
@@ -168,7 +171,7 @@ body {
     -o-transition: none !important;
 }
 
-#ffvbLink{
+#ffvbLink {
     padding: 10px 0 10px 0;
 }
 
@@ -176,7 +179,9 @@ body {
     background-color: firebrick;
     border-radius: 12px;
     opacity: 1;
-    transition: transform 400ms ease, opacity 600ms linear;
+    transition:
+        transform 400ms ease,
+        opacity 600ms linear;
     text-align: center;
     margin-top: 20px;
     display: flex;
@@ -184,12 +189,10 @@ body {
     padding: 0 20px 0;
 }
 
-.hide{
+.hide {
     visibility: hidden;
     position: absolute;
 }
-
-
 
 .hide.errorDiv {
     opacity: 0;
@@ -205,17 +208,16 @@ div.show.errorDiv {
     position: inherit;
 }
 
-.help{
+.help {
     padding-top: 10px;
     font-style: italic;
     color: darkgrey;
     font-size: 14px;
-    word-wrap:break-word;
+    word-wrap: break-word;
 }
-.help > span{
+.help > span {
     color: dimgray;
 }
-
 
 /* Select style */
 body {
@@ -235,8 +237,10 @@ select {
     width: 100%;
     height: 3em;
     padding: 0 4em 0 1em;
-    background: url(https://upload.wikimedia.org/wikipedia/commons/9/9d/Caret_down_font_awesome_whitevariation.svg) no-repeat right 0.8em center / 1.4em,
-    linear-gradient(to left, rgba(255, 255, 255, 0.3) 3em, rgba(255, 255, 255, 0.2) 3em);
+    background:
+        url(https://upload.wikimedia.org/wikipedia/commons/9/9d/Caret_down_font_awesome_whitevariation.svg)
+            no-repeat right 0.8em center / 1.4em,
+        linear-gradient(to left, rgba(255, 255, 255, 0.3) 3em, rgba(255, 255, 255, 0.2) 3em);
     color: white;
     border-radius: 0.25em;
     box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.2);
@@ -258,4 +262,3 @@ select:focus {
 select::-ms-expand {
     display: none;
 }
-

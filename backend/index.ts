@@ -1,12 +1,27 @@
-import dotenv from 'dotenv'
-import express, { Express } from 'express'
-import { routes } from './routes'
+import dotenv from "dotenv"
 
+// Load environment variables BEFORE other imports
 dotenv.config()
-const serverless = require("serverless-http")
+
+import express, { Express } from "express"
+import helmet from "helmet"
+import serverlessHttp from "serverless-http"
+import { errorHandler } from "./middleware/errorHandler"
+import { apiLimiter } from "./middleware/rateLimiter"
+import { routes } from "./routes"
+
 const app: Express = express()
 
+// Security middleware
+app.use(helmet())
+
+// Rate limiting for all API routes
+app.use("/api", apiLimiter)
+
+// API routes
 app.use("/api", routes)
 
-module.exports.handler = serverless(app)
+// Global error handler (must be last)
+app.use(errorHandler)
 
+module.exports.handler = serverlessHttp(app)
