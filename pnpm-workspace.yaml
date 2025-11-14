@@ -1,6 +1,7 @@
 ignoredBuiltDependencies:
   - '@parcel/watcher'
   - esbuild
+  - netlify
   - netlify-cli
   - protobufjs
   - sharp
