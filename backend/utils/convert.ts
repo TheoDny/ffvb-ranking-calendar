@@ -12,14 +12,16 @@ export const calendarArrayToICSArray = (cal: string[][][], team: string, url: st
                 const hour = match["2"].split(":")
                 let event_ics: EventAttributes = {
                     title: title,
-                    startInputType: "utc",
+                    startInputType: "local",
+                    startOutputType: "local",
                     start: [parseInt(date[2]),
                         parseInt(date[1]),
                         parseInt(date[0]),
                         parseInt(hour[0]),
                         parseInt(hour[1])],
                     duration: {hours: 2},
-                    url: url
+                    url: url,
+                    calName: "Europe/Paris"
                 }
                 if (match["6"] && match["6"].length !== 1) {
                     event_ics.location = match["3"].split(" ")[0] + ", " + match["6"]
