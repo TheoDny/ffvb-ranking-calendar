@@ -22,6 +22,7 @@ export const extractAll = async (url: string) => {
         const $ = await cheerio.fromURL(url);
         const table = $("body table").eq(3);
         const arrayCalendar = queryTableCalendarToArray(table);
+
         return arrayCalendar;
     } catch (error) {
         logger.error(error, "", "extractAll");
