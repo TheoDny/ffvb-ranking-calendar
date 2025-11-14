@@ -116,12 +116,19 @@ const buildParamffvb = (form) => {
 }
 const searchTeams = (event) => {
     event.preventDefault()
+
     const button = event.target
 
     if (button.disabled) return // Prevent double clicks
 
     setLoadingState(button)
     hideError()
+
+    const urlInputValid = event.target.form.children[0].children[0].children[0].children[0].reportValidity()
+    if (!urlInputValid) {
+        unsetLoadingState(button)
+        return
+    }
 
     const params = buildParamffvb(event.target.form)
     if (!params) {
@@ -147,7 +154,6 @@ const searchTeams = (event) => {
             let errorDiv = document.querySelector("#formICS .errorDiv")
             errorDiv.querySelector("p").innerText = error.message
             errorDiv.classList.add("show")
-            console.error(error.message)
             unsetLoadingState(button)
         })
 }
@@ -185,14 +191,12 @@ const submitFormICS = (event) => {
     hideError()
 
     const params = buildParamffvb(event.target.form)
-    console.log(params)
-    console.log(event.target.form.checkValidity())
+
     const formValid = event.target.form.reportValidity()
     if (!params || !formValid) {
         unsetLoadingState(button)
         return
     }
-    console.log("pass")
 
     const urlReq = `api/calendar/ics?${params}`
     let filename = "file.ics"

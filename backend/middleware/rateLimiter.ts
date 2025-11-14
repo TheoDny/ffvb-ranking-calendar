@@ -1,10 +1,14 @@
 import rateLimit from "express-rate-limit"
+import { ERROR_MESSAGES } from "../constants"
 
 // General API rate limiter - 100 requests per 15 minutes
 export const apiLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
     max: 100,
-    message: "Too many requests from this IP, please try again later.",
+    message: {
+        message: ERROR_MESSAGES.TOO_MANY_REQUESTS,
+        status: 429,
+    },
     standardHeaders: true,
     legacyHeaders: false,
 })
@@ -14,7 +18,10 @@ export const apiLimiter = rateLimit({
 export const scrapingLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
     max: 20,
-    message: "Too many scraping requests from this IP, please try again later.",
+    message: {
+        message: ERROR_MESSAGES.TOO_MANY_REQUESTS,
+        status: 429,
+    },
     standardHeaders: true,
     legacyHeaders: false,
 })

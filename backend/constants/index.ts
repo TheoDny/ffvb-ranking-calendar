@@ -27,4 +27,5 @@ export const ERROR_MESSAGES = {
     NO_TEAM_FOUND: "No team named",
     ICS_CONVERSION_ERROR: "Error convert build ICS",
     PARSING_ERROR: "Error while parsing",
+    TOO_MANY_REQUESTS: "Too many requests in the last 15 minutes, please try again later",
 } as const
