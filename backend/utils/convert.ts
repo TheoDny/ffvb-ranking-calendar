@@ -21,11 +21,7 @@ export const calendarArrayToICSArray = (cal: string[][][], team: string, url: st
                         parseInt(hour[1])],
                     duration: {hours: 2},
                     url: url,
-                    calName: "Europe/Paris",
-                    alarms: [{
-                        action: "display",
-                        trigger: {hours: 2, minutes: 0, before: true},
-                    }]
+                    calName: "Europe/Paris"
                 }
                 if (match["6"] && match["6"].length !== 1) {
                     event_ics.location = match["3"].split(" ")[0] + ", " + match["6"]
