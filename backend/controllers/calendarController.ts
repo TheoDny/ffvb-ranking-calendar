@@ -1,10 +1,10 @@
-import {Request, Response} from "express";
-import {extractAll} from "../services/extract";
-import {calendarArrayToICSArray, ICSArrayToICSString} from "../utils/convert";
-import {missingParam, sendError, sendFileICS, sendResponse} from "../utils/response";
+import { Request, Response } from "express";
+import { EventAttributes } from "ics";
+import { extractAll } from "../services/extract";
+import { calendarArrayToICSArray, ICSArrayToICSString } from "../utils/convert";
 import logger from "../utils/logger";
-import {EventAttributes} from "ics"
-import {getUrl} from "../utils/utils";
+import { missingParam, sendError, sendFileICS, sendResponse } from "../utils/response";
+import { getUrl } from "../utils/utils";
 
 const getRaw = async (req: Request, res: Response): Promise<void> => {
     // @ts-ignore
@@ -38,7 +38,7 @@ const getIcs = async (req: Request, res: Response): Promise<void> => {
 
         if (saison && codent && poule && team) {
             const url = getUrl(saison, codent, poule)
-            const data: string[][][] | null = await extractAll(url)
+            const data: string[][][] | false = await extractAll(url)
 
             if (data) {
                 const array_ics: EventAttributes[] = calendarArrayToICSArray(data, team, url)
